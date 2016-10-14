@@ -13,16 +13,20 @@ function drawGraph()
         autorange: true
       },
       yaxis: {
-        autorange: true
+        autorange: true,
+        title: "yaxis title"
+      },
+      yaxis2: {
+          autorange: true,
+          title: "yaxis2 title",
+          overlaying: "y",
+          titlefont: {color: "rgb(148, 103, 189)"},
+          tickfont: {color: "rgb(148, 103, 189)"},
+          side: "right"
       }
     }
-    var trace1 = {
-      x: [0,1],
-      y: [0,0],
-      type: 'scatter',
-    };
-    var graphsToPlot = [trace1];
-    Plotly.newPlot(graph, graphsToPlot, layout);
+    var dataToPlot = [];
+    Plotly.newPlot(graph, dataToPlot, layout);
 }
 
 
@@ -57,18 +61,18 @@ function isBenchmarkRunning()
 
 function redrawGraph()
 {
-    var graphsToPlot = [];
+    var dataToPlot = [];
     $.ajax({
         url: serverUrl + "/counters",
         dataType: 'json',
         success: function (data){
             $.each(data, function(key, val){
-                graphsToPlot.push(generateDataSingleGraph(key, val));
+                dataToPlot.push(generateDataSingleGraph(key, val));
             });
         }
     });
 
-    graph.data = graphsToPlot;
+    graph.data = dataToPlot;
     Plotly.redraw(graph);
 }
 
