@@ -61,33 +61,48 @@ function isBenchmarkRunning()
 
 function redrawGraph()
 {
-    var dataToPlot = [];
+    dataToPlot = [];
+    var trace = {};
     $.ajax({
         url: serverUrl + "/counters",
         dataType: 'json',
         success: function (data){
             $.each(data, function(key, val){
-                dataToPlot.push(generateDataSingleGraph(key, val));
+                if (existentCounters[key]["plot"] == true) {
+                    var trace = generateDataSingleGraph(key, val, existentCounters[key]["secondY"]);
+                    dataToPlot.push(trace);
+                }
             });
         }
+    }).done(function(){
+        graph.data = dataToPlot;
+        Plotly.redraw(graph);
     });
-
-    graph.data = dataToPlot;
-    Plotly.redraw(graph);
 }
 
-function generateDataSingleGraph(graphName, yPoints)
+function generateDataSingleGraph(graphName, yCoordinates, secondY)
 {
-    var xAxis=[];
-    for (var i = 0; i < yPoints.length; i++) {
-        xAxis.push(i)
+    var xCoordinates=[];
+    for (var i = 0; i < yCoordinates.length; i++) {
+        xCoordinates.push(i);
     };
-
-    return {
-        x: xAxis,
-        y: yPoints,
-        type: 'scatter',
-        name: graphName
+    var result = {};
+    if (secondY == true) {
+        result =  {
+                x: xCoordinates,
+                y: yCoordinates,
+                type: 'scatter',
+                yaxis: 'y2',
+                name: graphName
+            };
     }
-
+    else {
+        result =  {
+                x: xCoordinates,
+                y: yCoordinates,
+                type: 'scatter',
+                name: graphName
+            };
+    }
+    return result;
 }
