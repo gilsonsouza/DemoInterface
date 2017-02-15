@@ -9,21 +9,23 @@ $(document).ready(function() {
 function drawGraph()
 {
     var layout = {
-      xaxis: {
-        autorange: true
-      },
-      yaxis: {
-        autorange: true,
-        title: "yaxis title"
-      },
-      yaxis2: {
+        showlegend: true,
+        legend: {"orientation": "h"},
+        xaxis: {
+            autorange: true
+        },
+            yaxis: {
+            autorange: true,
+            title: "Y1"
+        },
+        yaxis2: {
           autorange: true,
-          title: "yaxis2 title",
+          title: "Y2",
           overlaying: "y",
           titlefont: {color: "rgb(148, 103, 189)"},
           tickfont: {color: "rgb(148, 103, 189)"},
           side: "right"
-      }
+        }
     }
     var dataToPlot = [];
     Plotly.newPlot(graph, dataToPlot, layout);
@@ -32,11 +34,12 @@ function drawGraph()
 
 function startBenchmark()
 {
-    serverUrl = document.getElementById("serverUrl").value
-    benchmark = document.getElementById("benchmark").value
-    duration = document.getElementById("benchmarkDuration").value
-    $.ajax({
-        url: serverUrl + "/startkits"
+    serverUrl = document.getElementById("serverUrl").value;
+    benchmark = document.getElementById("benchmark").value;
+    kitsOptions = "option1:teste, option2:teste2, option3: teste3";
+
+    $.post( serverUrl+"/startkits", kitsOptions, function( data ) {
+        $( ".result" ).html( kitsOptions );
     }).then(function(data) {
         if(data.kitsStart)
             $('.applicationStatus').html("<div class=\"alert alert-success\" role=\"alert\" align=\"center\">Benchmark is running</div>");
@@ -69,7 +72,7 @@ function redrawGraph()
         success: function (data){
             $.each(data, function(key, val){
                 if (existentCounters[key]["plot"] == true) {
-                    var trace = generateDataSingleGraph(key, val, existentCounters[key]["secondY"]);
+                    var trace = generateDataSingleGraph(existentCounters[key]["name"], val, existentCounters[key]["secondY"]);
                     dataToPlot.push(trace);
                 }
             });
@@ -88,20 +91,22 @@ function generateDataSingleGraph(graphName, yCoordinates, secondY)
     };
     var result = {};
     if (secondY == true) {
+        var finalName = graphName+"(Y2)";
         result =  {
                 x: xCoordinates,
                 y: yCoordinates,
                 type: 'scatter',
                 yaxis: 'y2',
-                name: graphName
+                name: finalName
             };
     }
     else {
+        var finalName = graphName+"(Y1)";
         result =  {
                 x: xCoordinates,
                 y: yCoordinates,
                 type: 'scatter',
-                name: graphName
+                name: finalName
             };
     }
     return result;

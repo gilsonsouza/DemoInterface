@@ -16,3 +16,8 @@ body {
 .theme-showcase .navbar .container {
   width: auto;
 }
+
+.progress-label {
+    float: left;
+    margin-right: 1em;
+}

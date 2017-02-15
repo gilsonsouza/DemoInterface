@@ -12,16 +12,17 @@ function generateCountersDialog()
                     event.data.dialogRef.close();
                 });
                 var i = 0;
+                $message.append('<div class=row>')
                 $.each(existentCounters, function (key, value){
                     if (value["plot"] == true) {
-                        $message.append('<input type="checkbox" id="'+key+'" checked> '+key+'    ');
+                        $message.append('<div class="col-xs-4"> <input type="checkbox" id="'+key+'" checked> '+key+'</div>    ');
                     }
                     else {
-                        $message.append('<input type="checkbox" id="'+key+'"> '+key+'    ');
+                        $message.append('<div class="col-xs-4"> <input type="checkbox" id="'+key+'"> '+key+'</div>    ');
                     }
                     i++;
                     if (!(i%3)){
-                        $message.append('<br>');
+                        $message.append('</div> <div class=row>');
                     }
                 });
                 $message.append('</div>');
