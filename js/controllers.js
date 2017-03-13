@@ -63,6 +63,9 @@ function startBenchmark()
                 redrawGraph();
                 isBenchmarkRunning();
             }, 5000);
+            progressBarsInterval = window.setInterval(function(){
+                updateRestartProgressBars();
+            }, 3000);
     });
 }
 
@@ -78,12 +81,47 @@ function isBenchmarkRunning()
     });
 }
 
+function callWebserver(routineName)
+{
+    $.ajax({
+        url: serverUrl + "/" +routineName
+    }).then(function(data) {
+        if(routineName == 'mediafailure' && data.hasMediaFailured)
+            mediaBarInterval = window.setInterval(function(){
+                updateMediaProgressBars();
+            }, 3000);
+    });
+}
+
+function updateRestartProgressBars()
+{
+    $.ajax({
+        url: serverUrl + "/recoveryprogress"
+    }).then(function(data) {
+        if(data.redoProgress == 100 && data.logAnalysisProgress == 100)
+            clearInterval(progressBarsInterval);
+        $('.loganalysis').html('<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: '+ data.logAnalysisProgress + '%;">'+ data.logAnalysisProgress +'</div>');
+        $('.redopass').html('<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: '+ data.redoProgress + '%;">'+ data.redoProgress +'</div>');
+    });
+}
+
+function updateMediaProgressBars()
+{
+    $.ajax({
+        url: serverUrl + "/mediarecoveryprogress"
+    }).then(function(data) {
+        if(data.mediaRecoveryProgress == 100)
+            clearInterval(mediaBarInterval);
+        $('.mediarecovery').html('<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: '+ data.mediaRecoveryProgress + '%;">'+ data.mediaRecoveryProgress +'</div>');
+    });
+}
+
 function redrawGraph()
 {
     dataToPlot = [];
     var trace = {};
     $.ajax({
-        url: serverUrl + "/counters",
+        url: serverUrl + "/getstats",
         dataType: 'json',
         success: function (data){
             $.each(data, function(key, val){

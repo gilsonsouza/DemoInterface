@@ -74,13 +74,13 @@
             <br/>
             <form class="form-inline" align="center">
                 <label >Inject failures:</label>
-                <button type=button class="btn btn-danger" onclick="generateCountersDialog();">System Failure</button>
+                <button type=button class="btn btn-danger" onclick="callWebserver('crash');">System Failure</button>
                 &nbsp;
-                <button type=button class="btn btn-danger" onclick="generateCountersDialog();">Media Failure</button>
+                <button type=button class="btn btn-danger" onclick="callWebserver('mediafailure');">Media Failure</button>
                 &nbsp;
                 <div class="form-group">
                     <select type="text" class="form-control" id="benchmark">
-                        <option value="tpcc"> Random root page </option>
+                        <option value="tpcc"> Random page </option>
                     </select>
                     <button type=button class="btn btn-danger" onclick="generateCountersDialog();">Single-Page Failure</button>
                 </div>
@@ -92,36 +92,40 @@
             <h3>Instant restart</h2>
             <div class=row>
                 <div class="col-xs-2">
-                    <label for="progress-log-analysis"> Log-analysis: </label>
+                    <label for="progress-log-analysis"> Log Analysis: </label>
                 </div>
                 <div class="col-xs-8">
-                    <div class="progress" id="progress-log-analysis">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
-                            100%
+                    <div class="progress">
+                        <div class="loganalysis">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                                0%
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class=row>
                 <div class="col-xs-2">
-                    <label for="progress-log-analysis"> REDO: </label>
+                    <label for="progress-redo-pass"> REDO: </label>
                 </div>
                 <div class="col-xs-8">
-                    <div class="progress" id="progress-log-analysis">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" style="width: 35%;">
-                            35%
+                    <div class="redopass">
+                        <div class="progress" >
+                            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                                0%
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class=row>
                 <div class="col-xs-2">
-                    <label for="progress-log-analysis"> UNDO: </label>
+                    <label for="progress-undo-pass"> UNDO: </label>
                 </div>
                 <div class="col-xs-8">
-                    <div class="progress" id="progress-log-analysis">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100" style="width: 87%;">
-                            87%
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                            0%
                         </div>
                     </div>
                 </div>
@@ -129,15 +133,17 @@
             <h3>Instant restore</h2>
             <div class=row>
                 <div class="col-xs-2">
-                    <label for="progress-log-analysis"> Segments Restored: </label>
+                    <label for="progress-media-recovery"> Pages Restored: </label>
                 </div>
                 <div class="col-xs-2">
-                    <label for="progress-log-analysis"> (27 segments of 464) </label>
+                    <label for="progress-media-recovery"> (0 pages of 0) </label>
                 </div>
                 <div class="col-xs-6">
-                    <div class="progress" id="progress-log-analysis">
-                        <div class="progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 6%;">
-                            6%
+                    <div class="progress" id="progress-media-recovery">
+                        <div class="mediarecovery">
+                            <div class="progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                                0%
+                            </div>
                         </div>
                     </div>
                 </div>
