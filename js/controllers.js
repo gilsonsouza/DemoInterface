@@ -100,8 +100,8 @@ function updateRestartProgressBars()
     }).then(function(data) {
         if(data.redoProgress == 100 && data.logAnalysisProgress == 100)
             clearInterval(progressBarsInterval);
-        $('.loganalysis').html('<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: '+ data.logAnalysisProgress + '%;">'+ data.logAnalysisProgress +'</div>');
-        $('.redopass').html('<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: '+ data.redoProgress + '%;">'+ data.redoProgress +'</div>');
+        $('.loganalysis').html('<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: '+ data.logAnalysisProgress + '%;">'+ data.logAnalysisProgress +'%</div>');
+        $('.redopass').html('<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: '+ data.redoProgress + '%;">'+ data.redoProgress +'%</div>');
     });
 }
 
@@ -112,7 +112,7 @@ function updateMediaProgressBars()
     }).then(function(data) {
         if(data.mediaRecoveryProgress == 100)
             clearInterval(mediaBarInterval);
-        $('.mediarecovery').html('<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: '+ data.mediaRecoveryProgress + '%;">'+ data.mediaRecoveryProgress +'</div>');
+        $('.mediarecovery').html('<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: '+ data.mediaRecoveryProgress + '%;">'+ data.mediaRecoveryProgress +'%</div>');
     });
 }
 
