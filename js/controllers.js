@@ -1,12 +1,6 @@
 var serverUrl = "";
 var myInterval;
-var noStopOption = true;
-var durationOption = false;
-var durationValue = 0;
-var transactionsOption = false;
-var numberTransactions = 0;
-var loadOption = false;
-var numberThreads = 1;
+var benchmarkParameters = "";
 
 
 $(document).ready(function() {
@@ -44,15 +38,7 @@ function startBenchmark()
 {
     serverUrl = document.getElementById("serverUrl").value;
     benchmark = document.getElementById("benchmark").value;
-    kitsOptions = "benchmark:"+benchmark+",threads:"+numberThreads;
-    if (noStopOption)
-        kitsOptions= kitsOptions+",no_stop:true";
-    if(durationOption)
-        kitsOptions = kitsOptions + ",duration:" + durationValue;
-    if (transactionsOption)
-        kitsOptions = kitsOptions + ",transactions:" + numberTransactions;
-    if (loadOption)
-        kitsOptions = kitsOptions + ",load:true";
+    kitsOptions = "-b "+benchmark+" "+benchmarkParameters;
 
     $.post( serverUrl+"/startkits", kitsOptions, function( data ) {
         $( ".result" ).html( kitsOptions );

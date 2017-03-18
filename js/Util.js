@@ -52,33 +52,12 @@ function generateParamentersDialog()
                     updateParametersBasedOnDialog();
                     event.data.dialogRef.close();
                 });
-                $message.append('<div class=row>');
-                if (noStopOption == true)
-                    $message.append('<div class="col-xs-4"> <input type="checkbox" id="nostop" checked> No stop </div>');
-                else
-                    $message.append('<div class="col-xs-4"> <input type="checkbox" id="nostop"> No stop </div>');
-
-                if (durationOption == true)
-                    $message.append('<div class="col-xs-4"> <input type="checkbox" id="duration" checked> Duration <input type="text" id="durationValue" size=4 value='+durationValue+'> </div>');
-                else
-                    $message.append('<div class="col-xs-4"> <input type="checkbox" id="duration"> Duration <input type="text" id="durationValue" size=4 value='+durationValue+'> </div>');
-
-                if (transactionsOption == true)
-                    $message.append('<div class="col-xs-4"> <input type="checkbox" id="transactions" checked> Transactions <input type="text" id="numberTransactions" size=4 value='+numberTransactions+'></div></div> ');
-                else
-                    $message.append('<div class="col-xs-4"> <input type="checkbox" id="transactions"> Transactions <input type="text" id="numberTransactions" size=4 value='+numberTransactions+'></div></div> ');
-
+                $message.append('<textarea id="benchmarkParameters" rows="16" cols="80">benchmark=tpcc\
+                \nqueried_sf=1\nthreads=1\nduration=300\n\
+nsm_vol_o_direct=true\nsm_cleaner_interval=0\nsm_cleaner_interval=0\nsm_chkpt_interval=5000\n\
+sm_chkpt_interval=5000\nsm_log_delete_old_partitions=false\nsm_vol_log_reads=true\nsm_shutdown_clean=false\n\
+sm_bufferpool_swizzle=true\nsm_archiving=false\nsm_truncate_log=false\nsm_no_db=false</textarea>');
                 $message.append('</div>');
-                $message.append('<div class=row>');
-
-                if (loadOption == true)
-                    $message.append('<div class="col-xs-4"> <input type="checkbox" id="load" checked> Load DataBase </div>');
-                else
-                    $message.append('<div class="col-xs-4"> <input type="checkbox" id="load"> Load DataBase </div>');
-
-                $message.append('<div class="col-xs-8"> Number of Threads <input type="text" id="numberThreads" value='+numberThreads+' size=4> </div>');
-                $message.append('</div> ');
-                $message.append('</div> <br>');
                 $message.append('<br>');
 
                 $message.append($button);
@@ -90,11 +69,5 @@ function generateParamentersDialog()
 
 function updateParametersBasedOnDialog()
 {
-    noStopOption = document.getElementById('nostop').checked;
-    durationOption = document.getElementById('duration').checked;
-    durationValue = document.getElementById('durationValue').value;
-    transactionsOption = document.getElementById('transactions').checked;
-    numberTransactions = document.getElementById('numberTransactions').value;
-    loadOption = document.getElementById('load').checked;
-    numberThreads = document.getElementById('numberThreads').value;
+    benchmarkParameters = document.getElementById('benchmarkParameters').value;
 }
