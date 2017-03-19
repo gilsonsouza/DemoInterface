@@ -22,11 +22,11 @@ function connectToServer()
         $('#media_fail').prop('disabled', false);
         $('#single_fail').prop('disabled', false);
         $('#btn_connect').prop('disabled', true);
+        myInterval = window.setInterval(function(){
+            redrawGraph();
+            isBenchmarkRunning();
+        }, 5000);
         if(data.isRunning){
-            myInterval = window.setInterval(function(){
-                redrawGraph();
-                isBenchmarkRunning();
-            }, 5000);
             progressBarsInterval = window.setInterval(function(){
                 updateRestartProgressBars();
             }, 3000);
@@ -87,10 +87,22 @@ function startBenchmark()
 function isBenchmarkRunning()
 {
     $.ajax({
-        url: serverUrl + "/iskitsrunning"
+        url: serverUrl + "/iskitsrunning",
+        error: function(xhr, error){
+            $('#start_benchmark').prop('disabled', true);
+            $('#adjust_parameters').prop('disabled', true);
+            $('#counters').prop('disabled', true);
+            $('#sys_fail').prop('disabled', true);
+            $('#media_fail').prop('disabled', true);
+            $('#single_fail').prop('disabled', true);
+            $('#btn_connect').prop('disabled', false);
+            $('.applicationStatus').html("<div class=\"alert alert-info\" role=\"alert\" align=\"center\">Benchmark is not running</div>");
+            clearInterval(progressBarsInterval);
+            clearInterval(mediaBarInterval);
+            clearInterval(myInterval);
+        }
     }).then(function(data) {
         if(!data.isRunning){
-            clearInterval(myInterval);
             $('.applicationStatus').html("<div class=\"alert alert-info\" role=\"alert\" align=\"center\">Benchmark is not running</div>");
         }
     });
