@@ -8,6 +8,35 @@ $(document).ready(function() {
     drawGraph();
 });
 
+
+function connectToServer()
+{
+    serverUrl = document.getElementById("serverUrl").value
+    $.ajax({
+        url: serverUrl + "/iskitsrunning"
+    }).then(function(data) {
+        $('#start_benchmark').prop('disabled', false);
+        $('#adjust_parameters').prop('disabled', false);
+        $('#counters').prop('disabled', false);
+        $('#sys_fail').prop('disabled', false);
+        $('#media_fail').prop('disabled', false);
+        $('#single_fail').prop('disabled', false);
+        $('#btn_connect').prop('disabled', true);
+        if(data.isRunning){
+            myInterval = window.setInterval(function(){
+                redrawGraph();
+                isBenchmarkRunning();
+            }, 5000);
+            progressBarsInterval = window.setInterval(function(){
+                updateRestartProgressBars();
+            }, 3000);
+            mediaBarInterval = window.setInterval(function(){
+                updateMediaProgressBars();
+            }, 3000);
+        }
+    });
+}
+
 function drawGraph()
 {
     var layout = {

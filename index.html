@@ -60,6 +60,7 @@
                     <label for="serverUrl">Server address:</label>
                     <input type="text" class="form-control" id="serverUrl" size=28 value="http://192.168.0.104:8080">
                 </div>
+                <button type=button class="btn btn-primary" id="btn_connect" onclick="connectToServer();">Connect</button>
                 <div class="form-group">
                     <label for="benchmark">Benchmark</label>
                     <select type="text" class="form-control" id="benchmark">
@@ -67,24 +68,34 @@
                         <option value="tpcb"> TPC-B </option>
                     </select>
                 </div>
-                <button type=button class="btn btn-primary" onclick="generateParamentersDialog();">Adjust Workload Parameters</button>
-                <button type=button class="btn btn-primary" onclick="generateCountersDialog();">Choose Counters</button>
-                <button type=button class="btn btn-default" onclick="startBenchmark();">Start Benchmark</button>
+                <button type=button class="btn btn-primary" id="adjust_parameters" onclick="generateParamentersDialog();">Adjust Workload Parameters</button>
+                <button type=button class="btn btn-primary" id="counters" onclick="generateCountersDialog();">Choose Counters</button>
+                <button type=button class="btn btn-default" id="start_benchmark" onclick="startBenchmark();">Start Benchmark</button>
             </form>
             <br/>
             <form class="form-inline" align="center">
                 <label >Inject failures:</label>
-                <button type=button class="btn btn-danger" onclick="callWebserver('crash');">System Failure</button>
+                <button type=button id="sys_fail" class="btn btn-danger" onclick="callWebserver('crash');">System Failure</button>
                 &nbsp;
-                <button type=button class="btn btn-danger" onclick="callWebserver('mediafailure');">Media Failure</button>
+                <button type=button id="media_fail" class="btn btn-danger" onclick="callWebserver('mediafailure');">Media Failure</button>
                 &nbsp;
                 <div class="form-group">
                     <select type="text" class="form-control" id="benchmark">
                         <option value="tpcc"> Random page </option>
                     </select>
-                    <button type=button class="btn btn-danger" onclick="generateCountersDialog();">Single-Page Failure</button>
+                    <button type=button id="single_fail" class="btn btn-danger" onclick="generateCountersDialog();">Single-Page Failure</button>
                 </div>
             </form>
+            <script>
+                $( document ).ready(function() {
+                    $('#start_benchmark').prop('disabled', true);
+                    $('#adjust_parameters').prop('disabled', true);
+                    $('#counters').prop('disabled', true);
+                    $('#sys_fail').prop('disabled', true);
+                    $('#media_fail').prop('disabled', true);
+                    $('#single_fail').prop('disabled', true);
+                });
+            </script>
             <br/>
             <div id="graph" style="width:100%;height:20%;"></div>
 
