@@ -52,9 +52,7 @@ function generateParamentersDialog()
                     updateParametersBasedOnDialog();
                     event.data.dialogRef.close();
                 });
-                $message.append('<textarea id="benchmarkParameters" rows="16" cols="80">benchmark=tpcc\
-\nqueried_sf=1\nthreads=1\nduration=0\nno_stop=true\n\load=false\n\
-sm_archiving=true</textarea>');
+                $message.append('<textarea id="benchmarkParameters" rows="16" cols="80">'+benchmarkParameters+'</textarea>');
                 $message.append('</div>');
                 $message.append('<br>');
 
