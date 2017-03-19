@@ -58,16 +58,9 @@
             <form class="form-inline" align="center">
                 <div class="form-group">
                     <label for="serverUrl">Server address:</label>
-                    <input type="text" class="form-control" id="serverUrl" size=28 value="http://192.168.0.104:8080">
+                    <input type="text" class="form-control" id="serverUrl" size=28 value="http://localhost:8080">
                 </div>
                 <button type=button class="btn btn-primary" id="btn_connect" onclick="connectToServer();">Connect</button>
-                <div class="form-group">
-                    <label for="benchmark">Benchmark</label>
-                    <select type="text" class="form-control" id="benchmark">
-                        <option value="tpcc"> TPC-C </option>
-                        <option value="tpcb"> TPC-B </option>
-                    </select>
-                </div>
                 <button type=button class="btn btn-primary" id="adjust_parameters" onclick="generateParamentersDialog();">Adjust Workload Parameters</button>
                 <button type=button class="btn btn-primary" id="counters" onclick="generateCountersDialog();">Choose Counters</button>
                 <button type=button class="btn btn-default" id="start_benchmark" onclick="startBenchmark();">Start Benchmark</button>
