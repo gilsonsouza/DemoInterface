@@ -27,12 +27,35 @@ function connectToServer()
             redrawGraph();
             isBenchmarkRunning();
         }, 5000);
-        if(data.isRunning){
+        if(data.isRunning == "yes"){
             progressBarsInterval = window.setInterval(function(){
                 updateProgressBars();
             }, 3000);
         }
+        updateStatusProgram(data.isRunning);
     });
+}
+
+function updateStatusProgram(isRunning)
+{
+    if(isRunning == "yes"){
+        $('.applicationStatus').html("<div class=\"alert alert-success\" role=\"alert\" align=\"center\">Benchmark is running</div>");
+        $('#sys_fail').prop('disabled', false);
+        $('#media_fail').prop('disabled', false);
+        $('#single_fail').prop('disabled', false);
+    }
+    else if (isRunning == "initializing"){
+        $('.applicationStatus').html("<div class=\"alert alert-warning\" role=\"alert\" align=\"center\">Initializing</div>");
+        $('#sys_fail').prop('disabled', true);
+        $('#media_fail').prop('disabled', true);
+        $('#single_fail').prop('disabled', true);
+    }
+    else if (isRunning == "no"){
+        $('.applicationStatus').html("<div class=\"alert alert-info\" role=\"alert\" align=\"center\">Benchmark is not running</div>");
+        $('#sys_fail').prop('disabled', true);
+        $('#media_fail').prop('disabled', true);
+        $('#single_fail').prop('disabled', true);
+    }
 }
 
 function drawGraph()
@@ -70,7 +93,6 @@ function startBenchmark()
         $( ".result" ).html( kitsOptions );
     }).then(function(data) {
         if(data.kitsStart)
-            $('.applicationStatus').html("<div class=\"alert alert-success\" role=\"alert\" align=\"center\">Benchmark is running</div>");
             myInterval = window.setInterval(function(){
                 redrawGraph();
                 isBenchmarkRunning();
@@ -99,9 +121,7 @@ function isBenchmarkRunning()
             clearInterval(myInterval);
         }
     }).then(function(data) {
-        if(!data.isRunning){
-            $('.applicationStatus').html("<div class=\"alert alert-info\" role=\"alert\" align=\"center\">Benchmark is not running</div>");
-        }
+        updateStatusProgram(data.isRunning);
     });
 }
 
