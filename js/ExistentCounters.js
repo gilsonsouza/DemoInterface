@@ -66,7 +66,7 @@ var existentCounters = {
  , "bf_upgrade_latch_changed" :  {plot: false, secondY: false}
  , "restart_repair_rec_lsn" :  {plot: false, secondY: false}
  , "vol_reads" :  {plot: true, secondY: true, name: "Page reads"}
- , "vol_writes" :  {plot: true, secondY: false, name: "Page writes"}
+ , "vol_writes" :  {plot: true, secondY: true, name: "Page writes"}
  , "vol_blks_written" :  {plot: false, secondY: false}
  , "need_vol_lock_r" :  {plot: false, secondY: false}
  , "need_vol_lock_w" :  {plot: false, secondY: false}

@@ -25,7 +25,7 @@ function connectToServer()
         myInterval = window.setInterval(function(){
             redrawGraph();
             isBenchmarkRunning();
-        }, 5000);
+        }, 3000);
         if(data.isRunning == "yes"){
             progressBarsInterval = window.setInterval(function(){
                 updateProgressBars();
@@ -91,7 +91,7 @@ function startBenchmark()
             myInterval = window.setInterval(function(){
                 redrawGraph();
                 isBenchmarkRunning();
-            }, 5000);
+            }, 3000);
             progressBarsInterval = window.setInterval(function(){
                 updateProgressBars();
             }, 3000);
