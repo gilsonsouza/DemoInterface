@@ -29,10 +29,7 @@ function connectToServer()
         }, 5000);
         if(data.isRunning){
             progressBarsInterval = window.setInterval(function(){
-                updateRestartProgressBars();
-            }, 3000);
-            mediaBarInterval = window.setInterval(function(){
-                updateMediaProgressBars();
+                updateProgressBars();
             }, 3000);
         }
     });
@@ -79,7 +76,7 @@ function startBenchmark()
                 isBenchmarkRunning();
             }, 5000);
             progressBarsInterval = window.setInterval(function(){
-                updateRestartProgressBars();
+                updateProgressBars();
             }, 3000);
     });
 }
@@ -115,12 +112,12 @@ function callWebserver(routineName)
     }).then(function(data) {
         if(routineName == 'mediafailure' && data.hasMediaFailured)
             mediaBarInterval = window.setInterval(function(){
-                updateMediaProgressBars();
+                updateProgressBars();
             }, 3000);
     });
 }
 
-function updateRestartProgressBars()
+function updateProgressBars()
 {
     $.ajax({
         url: serverUrl + "/recoveryprogress"
@@ -129,6 +126,8 @@ function updateRestartProgressBars()
             clearInterval(progressBarsInterval);
         $('.loganalysis').html('<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: '+ data.logAnalysisProgress + '%;">'+ data.logAnalysisProgress +'%</div>');
         $('.redopass').html('<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: '+ data.redoProgress + '%;">'+ data.redoProgress +'%</div>');
+        $('.undopass').html('<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: '+ data.undoProgress + '%;">'+ data.undoProgress +'%</div>');
+        $('.mediarecovery').html('<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: '+ data.restoreProgress + '%;">'+ data.restoreProgress +'%</div>');
     });
 }
 
