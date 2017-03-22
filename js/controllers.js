@@ -152,8 +152,10 @@ function redrawGraph()
         dataType: 'json',
         success: function (data){
             $.each(data, function(key, val){
-                if (existentCounters[key]["plot"] == true) {
+                if (typeof(existentCounters[key]) !== 'undefined' && existentCounters[key]["plot"] == true) {
                     var trace = generateDataSingleGraph(existentCounters[key]["name"], val, existentCounters[key]["secondY"]);
+                    if (existentCounters[key]["name"]=== null)
+                        trace = generateDataSingleGraph(key, val, existentCounters[key]["secondY"]);
                     dataToPlot.push(trace);
                 }
             });
