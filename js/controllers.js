@@ -1,7 +1,7 @@
 var serverUrl = "";
 var myInterval;
 var benchmarkParameters = "benchmark=tpcc\
-\nqueried_sf=1\nthreads=1\nduration=10\nno_stop=true\n\load=true\n\
+\nqueried_sf=1\nthreads=1\nduration=10\nno_stop=true\n\load=false\n\
 sm_archiving=true";
 
 $(document).ready(function() {
@@ -154,7 +154,7 @@ function redrawGraph()
             $.each(data, function(key, val){
                 if (typeof(existentCounters[key]) !== 'undefined' && existentCounters[key]["plot"] == true) {
                     var trace = generateDataSingleGraph(existentCounters[key]["name"], val, existentCounters[key]["secondY"]);
-                    if (existentCounters[key]["name"]=== null)
+                    if (!existentCounters[key]["name"])
                         trace = generateDataSingleGraph(key, val, existentCounters[key]["secondY"]);
                     dataToPlot.push(trace);
                 }
