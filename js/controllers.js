@@ -21,7 +21,6 @@ function connectToServer()
         $('#counters').prop('disabled', false);
         $('#sys_fail').prop('disabled', false);
         $('#media_fail').prop('disabled', false);
-        $('#single_fail').prop('disabled', false);
         $('#btn_connect').prop('disabled', true);
         myInterval = window.setInterval(function(){
             redrawGraph();
@@ -41,20 +40,16 @@ function updateStatusProgram(isRunning)
     if(isRunning == "yes"){
         $('.applicationStatus').html("<div class=\"alert alert-success\" role=\"alert\" align=\"center\">Benchmark is running</div>");
         $('#sys_fail').prop('disabled', false);
-        $('#media_fail').prop('disabled', false);
-        $('#single_fail').prop('disabled', false);
-    }
+        $('#media_fail').prop('disabled', false);    }
     else if (isRunning == "initializing"){
         $('.applicationStatus').html("<div class=\"alert alert-warning\" role=\"alert\" align=\"center\">Initializing</div>");
         $('#sys_fail').prop('disabled', true);
         $('#media_fail').prop('disabled', true);
-        $('#single_fail').prop('disabled', true);
     }
     else if (isRunning == "no"){
         $('.applicationStatus').html("<div class=\"alert alert-info\" role=\"alert\" align=\"center\">Benchmark is not running</div>");
         $('#sys_fail').prop('disabled', true);
         $('#media_fail').prop('disabled', true);
-        $('#single_fail').prop('disabled', true);
     }
 }
 
@@ -113,7 +108,6 @@ function isBenchmarkRunning()
             $('#counters').prop('disabled', true);
             $('#sys_fail').prop('disabled', true);
             $('#media_fail').prop('disabled', true);
-            $('#single_fail').prop('disabled', true);
             $('#btn_connect').prop('disabled', false);
             $('.applicationStatus').html("<div class=\"alert alert-info\" role=\"alert\" align=\"center\">Benchmark is not running</div>");
             clearInterval(progressBarsInterval);
